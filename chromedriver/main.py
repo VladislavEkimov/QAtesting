@@ -1,22 +1,27 @@
-
 from selenium import webdriver
 import time
 import math
 
-from selenium.webdriver.support.select import Select
 
 try:
-     url = 'http://suninjuly.github.io/selects1.html'
      browser = webdriver.Chrome()
-     browser.get(url)
+     link = "http://suninjuly.github.io/execute_script.html"
+     browser.get(link)
 
-     num1 = int(browser.find_element_by_css_selector('#num1').text)
-     num2 = int(browser.find_element_by_css_selector('#num2').text)
+     x = int(browser.find_element_by_css_selector('#input_value').text)
 
-     result = str(num1+num2)
+     result =  math.log(abs(12*math.sin(x)))
 
-     select = Select(browser.find_element_by_css_selector('#dropdown'))
-     select.select_by_value(result)
+     browser.execute_script("window.scrollBy(0, 200);")
+
+     input = browser.find_element_by_css_selector('#answer')
+     input.send_keys(str(result))
+
+     checkbox = browser.find_element_by_css_selector('#robotCheckbox')
+     checkbox.click()
+
+     radiobutton = browser.find_element_by_css_selector('#robotsRule')
+     radiobutton.click()
 
      button = browser.find_element_by_css_selector('.btn')
      button.click()
